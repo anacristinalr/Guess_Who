@@ -1,0 +1,78 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: rgb(29, 100, 181);
+  padding: 20px;
+}
+.tablero{
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  background-color: rgb(236, 177, 0);
+  padding: 40px;
+  border-radius: 20px;
+  border: 10px solid white;
+}
+
+.titulo{
+  width: 31%;
+  height: 130px;
+  margin: auto ;
+  margin-bottom: 30px;
+  display: grid;
+}
+.titulo img{
+  width: 90%;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: filter 0.3s ease;
+}
+
+.personaje-img {
+  width: 100%;
+  height: 100%;
+}
+
+.card.eliminado {
+  filter: grayscale(100%) brightness(0.8); /* Blanco y negro + opaco */
+  pointer-events: none;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+#mensaje {
+  margin: 10px;
+  font-weight: bold;
+  color: green;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
