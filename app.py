@@ -11,6 +11,7 @@ prolog = Prolog()
 PROLOG_FILE = "adivinaquien.pl"
 personaje_secreto = None
 
+
 def cargar_prolog():
     try:
         prolog.consult(PROLOG_FILE)

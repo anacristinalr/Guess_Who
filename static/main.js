@@ -36,6 +36,9 @@ let preguntasHechas = new Set();
 let preguntasCount = 0;
 let tiempoInicio = Date.now();
 
+
+
+
 window.preguntar = async function (filtro) {
   console.log(`🔍 Preguntando: ${filtro}`);
 
@@ -54,6 +57,13 @@ window.preguntar = async function (filtro) {
     }
 
     const data = await res.json();
+
+    // Si la respuesta es vacía, no eliminar todos los personajes ni avanzar el juego
+    if (!data.posibles || data.posibles.length === 0) {
+      showToast("Ningún personaje cumple ese filtro. Intenta otra pregunta.", "warning");
+      return;
+    }
+
     posibles = new Set(data.posibles.map((p) => p.toLowerCase()));
     preguntasHechas.add(filtro);
     preguntasCount++;
@@ -156,6 +166,22 @@ function actualizarBotonesDisponibles() {
     }
   });
 }
+function showToast(message, type = "info") {
+  Toastify({
+    text: message,
+    duration: 3000,
+    gravity: "bottom",
+    position: "center",
+    backgroundColor:
+      type === "error"
+        ? "#e53e3e"
+        : type === "success"
+        ? "#38a169"
+        : type === "warning"
+        ? "#ecc94b"
+        : "#3182ce",
+  }).showToast();
+}
 
 function verificarGanador() {
   if (posibles.size === 1) {
@@ -198,6 +224,29 @@ function actualizarProgreso() {
     progressFill.style.width = `${progreso}%`;
   }
 }
+
+async function preguntar(pregunta) {
+  const response = await fetch('/preguntar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ pregunta })
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    actualizarPersonajes(data.filtrados);
+  } else {
+    console.error('Error al hacer la pregunta');
+  }
+}
+
+function actualizarPersonajes(personajes) {
+  // Aquí actualizas la UI, mostrando solo los personajes filtrados
+  // Por ejemplo: ocultas los que no están en `personajes`
+}
+
 
 async function render() {
   const contenedor = document.getElementById("personajes-grid");
