@@ -111,6 +111,41 @@
           </div>
         </div>
 
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-sky-400">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-user-clock text-primary mr-2"></i> Edad
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Edad -->
+            <button class="btn-question bg-blue-200 rounded-lg text-blue-900 hover:bg-blue-400 hover:text-white"
+              onclick="preguntar('edad:infante')">
+              Niño
+            </button>
+            <button class="btn-question bg-blue-200 rounded-lg text-blue-900 hover:bg-blue-400 hover:text-white"
+              onclick="preguntar('edad:adulto')">
+              Adulto
+            </button>
+            <button class="btn-question bg-blue-200 rounded-lg text-blue-900 hover:bg-blue-400 hover:text-white"
+              onclick="preguntar('edad:adulto_mayor')">
+              Adulto Mayor
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-indigo-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-globe-asia text-primary mr-2"></i> Etnia
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-indigo-200 rounded-lg text-indigo-900 hover:bg-indigo-400 hover:text-white"
+              onclick="preguntar('etnia:asiatica')">¿Es asiático/a?</button>
+            <button class="btn-question bg-indigo-200 rounded-lg text-indigo-900 hover:bg-indigo-400 hover:text-white"
+              onclick="preguntar('etnia:occidental')">¿Es occidental?</button>
+            <button class="btn-question bg-indigo-200 rounded-lg text-indigo-900 hover:bg-indigo-400 hover:text-white"
+              onclick="preguntar('etnia:afrodescendiente')">¿Es afro?</button>
+          </div>
+        </div>        
+
         <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-teal-500">
           <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
             <i class="fas fa-glasses text-primary mr-2"></i> Accesorios
@@ -128,13 +163,25 @@
               onclick="preguntar('aretes')">
               ¿Tiene aretes?
             </button>
-            <button class="btn-question bg-teal-200 rounded-lg text-teal-900 hover:bg-teal-400 hover:text-white"
-              onclick="preguntar('accesorios')">
-              ¿Tiene accesorios?
-            </button>
           </div>
         </div>
 
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-pink-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-tshirt text-primary mr-2"></i> Ropa
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-pink-200 rounded-lg text-pink-900 hover:bg-pink-400 hover:text-white"
+              onclick="preguntar('chompa')">¿Lleva chompa?</button>
+            <button class="btn-question bg-pink-200 rounded-lg text-pink-900 hover:bg-pink-400 hover:text-white"
+              onclick="preguntar('polo')">¿Lleva polo?</button>
+            <button class="btn-question bg-pink-200 rounded-lg text-pink-900 hover:bg-pink-400 hover:text-white"
+              onclick="preguntar('caffarena')">¿Lleva caffarena?</button>
+            <button class="btn-question bg-pink-200 rounded-lg text-pink-900 hover:bg-pink-400 hover:text-white"
+              onclick="preguntar('camisa')">¿Lleva camisa?</button>
+          </div>
+        </div>
+        
         <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-orange-500">
           <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
             <i class="fas fa-cut text-primary mr-2"></i> Cabello
@@ -153,8 +200,16 @@
               ¿Es ondulado?
             </button>
             <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white"
+              onclick="preguntar('liso')">
+              ¿Es liso?
+            </button>
+            <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white"
               onclick="preguntar('afro')">
-              ¿Es afro?
+              ¿Tiene el pelo afro?
+            </button>
+            <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white"
+              onclick="preguntar('pelo_suelto')">
+              ¿Tiene el pelo suelto?
             </button>
           </div>
         </div>
@@ -180,13 +235,17 @@
               onclick="preguntar('pelirrojo')">
               ¿Es pelirrojo?
             </button>
+            <button class="btn-question bg-yellow-200 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white"
+              onclick="preguntar('gris')">
+              ¿Es gris?
+            </button>
+            <button class="btn-question bg-yellow-200 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white"
+              onclick="preguntar('multicolor')">
+              ¿Es multicolor?
+            </button>
           </div>
-          <button
-            class="btn-question bg-yellow-200 mt-1 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white"
-            onclick="preguntar('multicolor')">
-            ¿Es multicolor?
-          </button>
         </div>
+
 
         <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-green-500">
           <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
@@ -198,11 +257,28 @@
               ¿Tiene barba?
             </button>
             <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white"
+              onclick="preguntar('bigote')">
+              ¿Tiene bigote?
+            </button>
+            <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white"
+              onclick="preguntar('corte_militar')">
+              ¿Tiene corte militar?
+            </button>
+            <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white"
+              onclick="preguntar('copete')">
+              ¿Tiene copete?
+            </button>
+            <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white"
+              onclick="preguntar('calvo')">
+              ¿Es calvo?
+            </button>
+            <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white"
               onclick="preguntar('tez_clara')">
               ¿Tiene tez clara?
             </button>
           </div>
         </div>
+
 
         <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-purple-500">
           <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
@@ -216,6 +292,10 @@
             <button class="btn-question bg-purple-200 rounded-lg text-purple-900 hover:bg-purple-400 hover:text-white"
               onclick="preguntar('izquierda')">
               ¿Es izquierda?
+            </button>
+            <button class="btn-question bg-purple-200 rounded-lg text-purple-900 hover:bg-purple-400 hover:text-white"
+              onclick="preguntar('de_frente')">
+              ¿Es de frente?
             </button>
           </div>
         </div>
@@ -248,10 +328,10 @@
         <div class="flex-shrink-0 w-12"></div>
       </div>
 
-      <div class="grid grid-cols-5 gap-3 bg-gradient-to-br from-accent to-orange-400 p-4 rounded-2xl border-4 border-white flex-1" 
-           style="grid-template-rows: repeat(3, minmax(200px, 1fr));" 
-           id="personajes-grid">
-           
+      <div
+        class="grid grid-cols-5 gap-3 bg-gradient-to-br from-accent to-orange-400 p-4 rounded-2xl border-4 border-white flex-1"
+        style="grid-template-rows: repeat(3, minmax(200px, 1fr));" id="personajes-grid">
+
         <!-- Los personajes se cargan dinámicamente -->
       </div>
     </main>
@@ -286,50 +366,7 @@
   </div>
   <div id="toast-container"></div>
 
-  <<<<<<< HEAD <div id="mensaje">
-    </div>
-
-    <h3>Haz una pregunta:</h3>
-
-    <div id="botones">
-      <button data-filtro="mujer">¿Es mujer?</button>
-      <button data-filtro="hombre">¿Es hombre?</button>
-      <button data-filtro="accesorios">¿Tiene accesorios?</button>
-      <button data-filtro="lentes">¿Usa lentes?</button>
-      <button data-filtro="pelo_largo">¿Tiene el pelo largo?</button>
-      <button data-filtro="pelo_corto">¿Tiene el pelo corto?</button>
-      <button data-filtro="gorro">¿Usa gorro?</button>
-      <button data-filtro="aretes">¿Tiene pendientes?</button>
-      <button data-filtro="barba">¿Tiene barba?</button>
-      <button data-filtro="pelo_suelto">¿Tiene el pelo suelto?</button>
-      <button data-filtro="rubio">¿Tiene cabello rubio?</button>
-      <button data-filtro="castanio">¿Tiene cabello castaño?</button>
-      <button data-filtro="negro">¿Tiene cabello negro?</button>
-      <button data-filtro="pelirrojo">¿Tiene cabello pelirrojo?</button>
-      <button data-filtro="multicolor">¿Tiene cabello multicolor?</button>
-      <button data-filtro="derecha">¿Está mirando a la derecha?</button>
-      <button data-filtro="izquierda">¿Está mirando a la izquierda?</button>
-      <button data-filtro="tez_clara">¿Es de tez clara?</button>
-      <button data-filtro="tez_morena">¿Es de tez morena?</button>
-      <button data-filtro="afro">¿Tiene el cabello afro?</button>
-      <button data-filtro="ondulado">¿Tiene el cabello ondulado?</button>
-      <button data-filtro="corte_militar">¿Tiene corte militar?</button>
-      <button data-filtro="copete">¿Tiene copete?</button>
-    </div>
-
-    <div class="juegar-de-nuevo">
-      <button id="btn-reiniciar">REINICIAR JUEGO</button>
-    </div>
-
-    <h2 id="resultado"></h2>
-
-    <script src="../static/main.js"></script>
+  <script src="../static/main.js"></script>
 </body>
 
 </html>
-=======
-<script src="../static/main.js"></script>
-</body>
-
-</html>
->>>>>>> f170b9770129b5ebff465c055f0f87288ee58176

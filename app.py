@@ -28,8 +28,29 @@ def preguntar():
     pregunta = data.get("pregunta", "").lower().strip()
     posibles = data.get("posibles", [])
 
-    posibles_prolog = [p.lower().strip('"').strip("'") for p in posibles]
+    def limpiar_nombre(p):
+        return ''.join(c for c in p.lower() if c.isalnum() or c == '_')
+
+    posibles_prolog = [limpiar_nombre(p) for p in posibles]
     posibles_str = "[" + ",".join(posibles_prolog) + "]"
+
+    # Mapeo de preguntas del frontend a Prolog
+    pregunta_map = {
+        "edad:infante": "infante",
+        "edad:adulto": "adulto",
+        "edad:adulto_mayor": "adulto_mayor",
+        "etnia:asiatica": "asiatico",
+        "etnia:occidental": "occidental",
+        "etnia:afrodescendiente": "afrodescendiente",
+        "de_frente": "frente"
+    }
+    pregunta = pregunta_map.get(pregunta, pregunta)
+    if ":" in pregunta:
+        pregunta = pregunta.split(":")[-1]
+
+    if not pregunta.isidentifier():
+        pregunta = f"'{pregunta}'"
+
     consulta = f"filtrar({pregunta}, {posibles_str}, Filtrados)"
 
     try:
@@ -41,7 +62,8 @@ def preguntar():
             nombres_filtrados = []
     except Exception as e:
         print(f"[❌ Error en consulta Prolog]: {e}")
-        return jsonify({"posibles": []}), 500
+        print(f"[❌ Consulta enviada]: {consulta}")
+        return jsonify({"posibles": [], "error": str(e), "consulta": consulta}), 500
 
     return jsonify({"posibles": nombres_filtrados})
 
