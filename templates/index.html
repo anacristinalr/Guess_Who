@@ -1,23 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Juego ¿Quién soy?</title>
-    <!-- Cambia la ruta del CSS para que Flask lo sirva correctamente -->
-    <link rel="stylesheet" href="../static/style.css" />
-  </head>
-  <body>
-    <div class="tablero">
-      <div class="titulo">
-        <img src="../static/img/logo.png" alt="logo" />
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quién Soy? - Juego Interactivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif'],
+            'fredoka': ['Fredoka', 'cursive'],
+          },
+          colors: {
+            'primary': '#667eea',
+            'secondary': '#f093fb',
+            'accent': '#ffd93d',
+            'success': '#48bb78',
+            'warning': '#ed8936',
+            'danger': '#f56565',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .btn-question {
+      @apply font-poppins px-4 py-3 rounded-2xl font-medium text-sm cursor-pointer flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .card-flip {
+      perspective: 1000px;
+    }
+    
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    
+    .card-flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body class="font-poppins bg-gradient-to-br from-primary to-purple-600 text-gray-800 h-screen overflow-hidden">
+
+  <div class="flex max-w-7xl mx-auto gap-4 p-4 h-screen">
+    
+    <section class="bg-white/95 backdrop-blur-lg border border-white/20 rounded-3xl p-6 w-96 flex-shrink-0 h-full overflow-hidden flex flex-col shadow-2xl">
+      
+      <div class="mb-6">
+        <h2 class="font-fredoka text-xl font-semibold text-center mb-4 flex items-center justify-center gap-2">
+          <i class="fas fa-brain text-primary"></i>
+          Haz tu pregunta
+        </h2>
+        <div class="w-full h-2 bg-gray-200 rounded-full">
+          <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full w-0 transition-all duration-500" id="progress-fill"></div>
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-4 flex-1 overflow-y-auto">
+        
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-red-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-venus-mars text-primary mr-2"></i> Género
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="btn-question bg-red-200 rounded-lg text-red-900 hover:bg-red-400 hover:text-white" onclick="preguntar('mujer')">
+              Mujer
+            </button>
+            <button class="btn-question bg-red-200 rounded-lg text-red-900 hover:bg-red-400 hover:text-white" onclick="preguntar('hombre')">
+              Hombre
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-teal-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-glasses text-primary mr-2"></i> Accesorios
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-teal-200 rounded-lg text-teal-900 hover:bg-teal-400 hover:text-white" onclick="preguntar('lentes')">
+             ¿Tiene lentes?
+            </button>
+            <button class="btn-question bg-teal-200 rounded-lg text-teal-900 hover:bg-teal-400 hover:text-white" onclick="preguntar('gorro')">
+              ¿Tiene gorro?
+            </button>
+            <button class="btn-question bg-teal-200 rounded-lg text-teal-900 hover:bg-teal-400 hover:text-white" onclick="preguntar('aretes')">
+              ¿Tiene aretes?
+            </button>
+            <button class="btn-question bg-teal-200 rounded-lg text-teal-900 hover:bg-teal-400 hover:text-white" onclick="preguntar('accesorios')">
+              ¿Tiene accesorios?
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-orange-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-cut text-primary mr-2"></i> Cabello
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white" onclick="preguntar('pelo_largo')">
+              ¿Es largo?
+            </button>
+            <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white" onclick="preguntar('pelo_corto')">
+              ¿Es corto?  
+            </button>
+            <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white" onclick="preguntar('ondulado')">
+              ¿Es ondulado?
+            </button>
+            <button class="btn-question bg-orange-200 rounded-lg text-orange-900 hover:bg-orange-400 hover:text-white" onclick="preguntar('afro')">
+              ¿Es afro?
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-yellow-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-palette text-primary mr-2"></i> Color
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-yellow-200 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white" onclick="preguntar('rubio')">
+              ¿Es rubio?
+            </button>
+            <button class="btn-question bg-amber-200 rounded-lg text-amber-900 hover:bg-amber-400 hover:text-white" onclick="preguntar('castanio')">
+              ¿Es castaño?
+            </button>
+            <button class="btn-question bg-yellow-200 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white" onclick="preguntar('negro')">
+              ¿Es negro?
+            </button>
+            <button class="btn-question bg-yellow-200 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white" onclick="preguntar('pelirrojo')">
+              ¿Es pelirrojo?
+            </button>
+          </div>
+          <button class="btn-question bg-yellow-200 mt-1 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-white" onclick="preguntar('multicolor')">
+            ¿Es multicolor?
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-green-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-user-check text-primary mr-2"></i> Características
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white" onclick="preguntar('barba')">
+              ¿Tiene barba?
+            </button>
+            <button class="btn-question bg-green-200 rounded-lg text-green-900 hover:bg-green-400 hover:text-white" onclick="preguntar('tez_clara')">
+              ¿Tiene tez clara?
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-md border-l-4 border-purple-500">
+          <h3 class="font-fredoka text-sm font-semibold mb-3 text-gray-800 uppercase tracking-wide">
+            <i class="fas fa-eye text-primary mr-2"></i> Dirección
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-question bg-purple-200 rounded-lg text-purple-900 hover:bg-purple-400 hover:text-white" onclick="preguntar('derecha')">
+              ¿Es derecha?
+            </button>
+            <button class="btn-question bg-purple-200 rounded-lg text-purple-900 hover:bg-purple-400 hover:text-white" onclick="preguntar('izquierda')">
+              ¿Es izquierda?
+            </button>
+          </div>
+        </div>
+
       </div>
 
-      <div class="grid" id="personajes-grid">
-        <!-- Las cards se insertan dinámicamente con JavaScript -->
+      <div class="mt-6">
+        <button class="w-full bg-gradient-to-r from-danger to-red-600 text-white px-6 py-4 rounded-2xl font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 hover:scale-105" onclick="reiniciarJuego()">
+          <i class="fas fa-redo-alt mr-2"></i>
+          Nuevo Juego
+        </button>
+      </div>
+    </section>
+
+    <main class="flex-1 flex flex-col bg-white/95 backdrop-blur-lg border border-white/20 rounded-3xl p-6 shadow-2xl">
+      
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex-shrink-0">
+          <img src="../static/img/logo.png" alt="Guess Who Logo" class="h-12 w-auto" />
+        </div>
+        
+        <div class="flex-1 text-center">
+          <h1 class="font-fredoka text-2xl font-bold text-primary mb-1">¿Quién Soy?</h1>
+          <p class="text-gray-600 text-sm">Encuentra al personaje misterioso</p>
+        </div>
+        
+        <div class="flex-shrink-0 w-12"></div>
+      </div>
+
+      <div class="grid grid-cols-5 gap-3 bg-gradient-to-br from-accent to-orange-400 p-4 rounded-2xl border-4 border-white flex-1" 
+           style="grid-template-rows: repeat(3, minmax(200px, 1fr));" 
+           id="personajes-grid">
+        <!-- Los personajes se cargan dinámicamente -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal-ganador" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative bg-white rounded-3xl p-8 m-4 max-w-md w-full shadow-2xl">
+      <div class="text-center">
+        <div class="text-6xl mb-4">🏆</div>
+        <h2 class="font-fredoka text-2xl font-bold text-primary mb-4">¡Ganaste!</h2>
+        <div class="font-fredoka text-xl font-bold text-gray-800 mb-4" id="personaje-ganador"></div>
+        <div class="flex justify-center gap-4 mb-6 text-sm text-gray-600">
+          <span><i class="fas fa-question text-primary"></i> <span id="final-questions"></span></span>
+          <span><i class="fas fa-clock text-primary"></i> <span id="final-time"></span></span>
+        </div>
+        <div class="flex gap-3">
+          <button class="flex-1 bg-success text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors" onclick="cerrarModalYReiniciar()">
+            <i class="fas fa-play mr-1"></i> Jugar de nuevo
+          </button>
+          <button class="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-400 transition-colors" onclick="cerrarModal()">
+            <i class="fas fa-times mr-1"></i> Cerrar
+          </button>
+        </div>
       </div>
     </div>
+  </div>
+  <div id="toast-container"></div>
 
+<<<<<<< HEAD
     <div id="mensaje"></div>
 
     <h3>Haz una pregunta:</h3>
@@ -57,3 +290,8 @@
     <script src="../static/main.js"></script>
   </body>
 </html>
+=======
+  <script src="../static/main.js"></script>
+</body>
+</html>
+>>>>>>> f170b9770129b5ebff465c055f0f87288ee58176
