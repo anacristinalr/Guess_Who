@@ -26,6 +26,7 @@ const caracteristicas_por_personaje = {
 };
 
 let posibles = new Set(Object.keys(caracteristicas_por_personaje));
+let preguntasHechas = new Set();
 
 async function preguntar(filtro) {
   const res = await fetch("/preguntar", {
@@ -36,6 +37,7 @@ async function preguntar(filtro) {
 
   const data = await res.json();
   posibles = new Set(data.posibles.map((p) => p.toLowerCase()));
+  preguntasHechas.add(filtro);
   render();
   actualizarBotonesDisponibles();
   verificarGanador();
@@ -45,6 +47,15 @@ function actualizarBotonesDisponibles() {
   const botones = document.querySelectorAll("button[onclick^='preguntar']");
   botones.forEach((boton) => {
     const filtro = boton.getAttribute("onclick").match(/'([^']+)'/)[1];
+    
+    // Caso especial para género: si ya se preguntó por mujer o hombre, deshabilitar ambos
+    if ((filtro === 'mujer' || filtro === 'hombre') && 
+        (preguntasHechas.has('mujer') || preguntasHechas.has('hombre'))) {
+      boton.disabled = true;
+      return;
+    }
+    
+    // Para otras características, verificar si aún son útiles
     const aunPosible = Array.from(posibles).some((p) =>
       caracteristicas_por_personaje[p]?.includes(filtro)
     );
@@ -55,8 +66,30 @@ function actualizarBotonesDisponibles() {
 function verificarGanador() {
   if (posibles.size === 1) {
     const ganador = Array.from(posibles)[0];
-    alert("¡El personaje es: " + ganador.charAt(0).toUpperCase() + ganador.slice(1) + "!");
+    mostrarModalGanador(ganador);
   }
+}
+
+function mostrarModalGanador(ganador) {
+  const modal = document.getElementById("modal-ganador");
+  const personajeGanador = document.getElementById("personaje-ganador");
+  
+  personajeGanador.textContent = ganador.charAt(0).toUpperCase() + ganador.slice(1);
+  modal.style.display = "block";
+  
+  // Deshabilitar todos los botones de preguntas
+  const botones = document.querySelectorAll("button[onclick^='preguntar']");
+  botones.forEach(boton => boton.disabled = true);
+}
+
+function cerrarModal() {
+  const modal = document.getElementById("modal-ganador");
+  modal.style.display = "none";
+}
+
+function cerrarModalYReiniciar() {
+  cerrarModal();
+  reiniciarJuego();
 }
 
 function render() {
@@ -105,6 +138,7 @@ async function reiniciarJuego() {
 
     // ✅ Si todo va bien:
     posibles = new Set(Object.keys(caracteristicas_por_personaje));
+    preguntasHechas.clear(); // Limpiar el conjunto de preguntas hechas
     render();
     actualizarBotonesDisponibles();
 
@@ -131,4 +165,12 @@ window.onload = () => {
 
   // ✅ Asegura que el DOM ya está cargado
   document.getElementById("btn-reiniciar").addEventListener("click", reiniciarJuego);
+  
+  // Cerrar modal al hacer clic fuera de él
+  const modal = document.getElementById("modal-ganador");
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      cerrarModal();
+    }
+  });
 };

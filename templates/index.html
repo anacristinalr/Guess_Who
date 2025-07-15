@@ -8,62 +8,81 @@
     <link rel="stylesheet" href="../static/style.css" />
   </head>
   <body>
-    <div class="tablero">
-      <div class="titulo">
-        <img src="../static/img/logo.png" alt="logo" />
+    <div class="container-principal">
+      <div class="seccion-preguntas">
+        <h3>Preguntas:</h3>
+        
+        <div id="botones">
+          <button onclick="preguntar('mujer')">¿Es mujer?</button>
+          <button onclick="preguntar('hombre')">¿Es hombre?</button>
+          <button onclick="preguntar('accesorios')">¿Tiene accesorios?</button>
+          <button onclick="preguntar('lentes')">¿Usa lentes?</button>
+          <button onclick="preguntar('pelo_largo')">¿Tiene el pelo largo?</button>
+          <button onclick="preguntar('pelo_corto')">¿Tiene el pelo corto?</button>
+          <button onclick="preguntar('gorro')">¿Usa gorro?</button>
+          <button onclick="preguntar('aretes')">¿Tiene pendientes?</button>
+          <button onclick="preguntar('barba')">¿Tiene barba?</button>
+          <button onclick="preguntar('pelo_suelto')">¿Tiene el pelo suelto?</button>
+          <button onclick="preguntar('rubio')">¿Tiene cabello rubio?</button>
+          <button onclick="preguntar('castanio')">¿Tiene cabello castaño?</button>
+          <button onclick="preguntar('negro')">¿Tiene cabello negro?</button>
+          <button onclick="preguntar('pelirrojo')">
+            ¿Tiene cabello pelirrojo?
+          </button>
+          <button onclick="preguntar('multicolor')">
+            ¿Tiene cabello multicolor?
+          </button>
+          <button onclick="preguntar('derecha')">
+            ¿Está mirando a la derecha?
+          </button>
+          <button onclick="preguntar('izquierda')">
+            ¿Está mirando a la izquierda?
+          </button>
+          <button onclick="preguntar('tez_clara')">¿Es de tez clara?</button>
+          <button onclick="preguntar('tez_morena')">¿Es de tez morena?</button>
+          <button onclick="preguntar('afro')">¿Tiene el cabello afro?</button>
+          <button onclick="preguntar('ondulado')">
+            ¿Tiene el cabello ondulado?
+          </button>
+          <button onclick="preguntar('corte_militar')">
+            ¿Tiene corte militar?
+          </button>
+          <button onclick="preguntar('copete')">¿Tiene copete?</button>
+        </div>
       </div>
 
-      <div class="grid" id="personajes-grid">
-        <!-- Las cards se insertan dinámicamente con JavaScript -->
+      <div class="tablero">
+        <div class="titulo">
+          <img src="../static/img/logo.png" alt="logo" />
+        </div>
+
+        <div class="grid" id="personajes-grid">
+          <!-- Las cards se insertan dinámicamente con JavaScript -->
+        </div>
       </div>
     </div>
 
     <div id="mensaje"></div>
 
-    <h3>Haz una pregunta:</h3>
-
-    <div id="botones">
-      <button onclick="preguntar('mujer')">¿Es mujer?</button>
-      <button onclick="preguntar('hombre')">¿Es hombre?</button>
-      <button onclick="preguntar('accesorios')">¿Tiene accesorios?</button>
-      <button onclick="preguntar('lentes')">¿Usa lentes?</button>
-      <button onclick="preguntar('pelo_largo')">¿Tiene el pelo largo?</button>
-      <button onclick="preguntar('pelo_corto')">¿Tiene el pelo corto?</button>
-      <button onclick="preguntar('gorro')">¿Usa gorro?</button>
-      <button onclick="preguntar('aretes')">¿Tiene pendientes?</button>
-      <button onclick="preguntar('barba')">¿Tiene barba?</button>
-      <button onclick="preguntar('pelo_suelto')">¿Tiene el pelo suelto?</button>
-      <button onclick="preguntar('rubio')">¿Tiene cabello rubio?</button>
-      <button onclick="preguntar('castanio')">¿Tiene cabello castaño?</button>
-      <button onclick="preguntar('negro')">¿Tiene cabello negro?</button>
-      <button onclick="preguntar('pelirrojo')">
-        ¿Tiene cabello pelirrojo?
-      </button>
-      <button onclick="preguntar('multicolor')">
-        ¿Tiene cabello multicolor?
-      </button>
-      <button onclick="preguntar('derecha')">
-        ¿Está mirando a la derecha?
-      </button>
-      <button onclick="preguntar('izquierda')">
-        ¿Está mirando a la izquierda?
-      </button>
-      <button onclick="preguntar('tez_clara')">¿Es de tez clara?</button>
-      <button onclick="preguntar('tez_morena')">¿Es de tez morena?</button>
-      <button onclick="preguntar('afro')">¿Tiene el cabello afro?</button>
-      <button onclick="preguntar('ondulado')">
-        ¿Tiene el cabello ondulado?
-      </button>
-      <button onclick="preguntar('corte_militar')">
-        ¿Tiene corte militar?
-      </button>
-      <button onclick="preguntar('copete')">¿Tiene copete?</button>
-    </div>
-
-    <div class="juegar-de-nuevo">
-      <button id="btn-reiniciar" onclick="reiniciarJuego()">
-        REINICIAR JUEGO
-      </button>
+    <!-- Modal del ganador -->
+    <div id="modal-ganador" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🎉 ¡Felicidades! 🎉</h2>
+        </div>
+        <div class="modal-body">
+          <p id="mensaje-ganador">¡El personaje es:</p>
+          <div id="personaje-ganador"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-modal-reiniciar" onclick="cerrarModalYReiniciar()">
+            ¡Jugar de nuevo!
+          </button>
+          <button id="btn-modal-cerrar" onclick="cerrarModal()">
+            Cerrar
+          </button>
+        </div>
+      </div>
     </div>
 
     <h2 id="resultado"></h2>
