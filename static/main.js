@@ -1,19 +1,10 @@
 const caracteristicas_por_personaje = {
   sidney: ["mujer", "gorro", "pelo_largo", "pelirrojo", "izquierda", "tez_clara"],
   olivia: ["mujer", "multicolor", "derecha", "tez_morena", "afro"],
-  amy: [
-    "mujer", "accesorios", "lentes", "pelo_corto", "pelo_suelto",
-    "derecha", "tez_clara", "multicolor",
-  ],
-  laura: [
-    "mujer", "accesorios", "pelo_largo", "aretes", "pelo_suelto",
-    "negro", "ondulado", "izquierda", "tez_morena",
-  ],
+  amy: ["mujer", "accesorios", "lentes", "pelo_corto", "pelo_suelto", "derecha", "tez_clara", "multicolor"],
+  laura: ["mujer", "accesorios", "pelo_largo", "aretes", "pelo_suelto", "negro", "ondulado", "izquierda", "tez_morena"],
   maya: ["mujer", "pelo_largo", "pelirrojo", "izquierda", "tez_clara"],
-  sam: [
-    "mujer", "pelo_largo", "pelo_suelto", "negro", "ondulado",
-    "izquierda", "tez_morena",
-  ],
+  sam: ["mujer", "pelo_largo", "pelo_suelto", "negro", "ondulado", "izquierda", "tez_morena"],
   zara: ["mujer", "pelo_corto", "rubio", "izquierda", "tez_clara"],
   ethan: ["hombre", "accesorios", "aretes", "negro", "ondulado", "derecha", "tez_clara"],
   diego: ["hombre", "negro", "izquierda", "tez_clara"],
@@ -28,24 +19,28 @@ const caracteristicas_por_personaje = {
 let posibles = new Set(Object.keys(caracteristicas_por_personaje));
 
 async function preguntar(filtro) {
-  const res = await fetch("/preguntar", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ pregunta: filtro, posibles: Array.from(posibles) }),
-  });
+  try {
+    const res = await fetch("/preguntar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pregunta: filtro, posibles: Array.from(posibles) }),
+    });
 
-  const data = await res.json();
-  posibles = new Set(data.posibles.map((p) => p.toLowerCase()));
-  render();
-  actualizarBotonesDisponibles();
-  verificarGanador();
+    const data = await res.json();
+    posibles = new Set(data.posibles.map(p => p.toLowerCase()));
+    render();
+    actualizarBotonesDisponibles();
+    verificarGanador();
+  } catch (error) {
+    console.error("❌ Error al hacer la pregunta:", error);
+    alert("Error al consultar. Intenta de nuevo.");
+  }
 }
 
 function actualizarBotonesDisponibles() {
-  const botones = document.querySelectorAll("button[onclick^='preguntar']");
-  botones.forEach((boton) => {
+  document.querySelectorAll("button[onclick^='preguntar']").forEach(boton => {
     const filtro = boton.getAttribute("onclick").match(/'([^']+)'/)[1];
-    const aunPosible = Array.from(posibles).some((p) =>
+    const aunPosible = Array.from(posibles).some(p =>
       caracteristicas_por_personaje[p]?.includes(filtro)
     );
     boton.disabled = !aunPosible;
@@ -55,7 +50,9 @@ function actualizarBotonesDisponibles() {
 function verificarGanador() {
   if (posibles.size === 1) {
     const ganador = Array.from(posibles)[0];
-    alert("¡El personaje es: " + ganador.charAt(0).toUpperCase() + ganador.slice(1) + "!");
+    setTimeout(() => {
+      alert("🎉 ¡El personaje es: " + ganador.charAt(0).toUpperCase() + ganador.slice(1) + "!");
+    }, 200); // Un pequeño retraso para renderizar primero
   }
 }
 
@@ -66,19 +63,13 @@ function render() {
   for (const personaje in caracteristicas_por_personaje) {
     const div = document.createElement("div");
     div.className = "card";
+    if (!posibles.has(personaje)) div.classList.add("eliminado");
 
-    // Verificar si está eliminado
-    if (!posibles.has(personaje)) {
-      div.classList.add("eliminado");
-    }
-
-    // Crear la imagen
     const img = document.createElement("img");
-    img.src = `/static/img/personajes/${personaje}.png`; // Asegúrate de servir estos archivos
+    img.src = `/static/img/personajes/${personaje}.png`;
     img.alt = personaje;
     img.classList.add("personaje-img");
 
-    // Agregar al div
     div.appendChild(img);
     contenedor.appendChild(div);
   }
@@ -87,23 +78,10 @@ function render() {
 async function reiniciarJuego() {
   try {
     const res = await fetch("/reiniciar", { method: "POST" });
+    const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(`Error HTTP ${res.status}`);
-    }
+    if (!res.ok || !data.ok) throw new Error(data.error || "No se pudo reiniciar");
 
-    let data;
-    try {
-      data = await res.json();
-    } catch (e) {
-      throw new Error("La respuesta no es JSON válido");
-    }
-
-    if (!data.ok) {
-      throw new Error(data.error || "Respuesta ok = false");
-    }
-
-    // ✅ Si todo va bien:
     posibles = new Set(Object.keys(caracteristicas_por_personaje));
     render();
     actualizarBotonesDisponibles();
@@ -123,12 +101,8 @@ async function reiniciarJuego() {
   }
 }
 
-
-// Inicialización
 window.onload = () => {
   render();
   actualizarBotonesDisponibles();
-
-  // ✅ Asegura que el DOM ya está cargado
   document.getElementById("btn-reiniciar").addEventListener("click", reiniciarJuego);
 };
