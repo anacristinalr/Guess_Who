@@ -44,20 +44,33 @@ def preguntar():
     pregunta = data.get("pregunta", "").lower().strip()
     posibles = data.get("posibles", [])
 
+    print(f"[DEBUG] Pregunta recibida: '{pregunta}'")
+    print(f"[DEBUG] Posibles recibidos: {posibles}")
+
     posibles_prolog = [p.lower().strip('"').strip("'") for p in posibles]
     posibles_str = "[" + ",".join(posibles_prolog) + "]"
     consulta = f"filtrar({pregunta}, {posibles_str}, Filtrados)"
 
+    print(f"[DEBUG] Consulta Prolog: {consulta}")
+
     try:
         resultados = list(prolog.query(consulta))
+        print(f"[DEBUG] Resultados Prolog: {resultados}")
+        
         if resultados:
             filtrados = resultados[0]["Filtrados"]
             nombres_filtrados = [str(p) for p in filtrados]
+            print(f"[DEBUG] Nombres filtrados: {nombres_filtrados}")
         else:
             nombres_filtrados = []
+            print("[DEBUG] No se obtuvieron resultados")
+            
         return jsonify({"posibles": nombres_filtrados})
     except Exception as e:
-        print(f"[❌ Error en consulta Prolog]: {e}")
+        print(f"[❌ Error detallado en consulta Prolog]: {str(e)}")
+        print(f"[❌ Tipo de error]: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
         return jsonify({
             "error": f"Pregunta no válida o error en Prolog: {pregunta}",
             "posibles": []

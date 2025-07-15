@@ -182,65 +182,65 @@ personaje(charles, hombre, no, no, si, no, no, no,
 
 
 % Filtros por género
-es_hombre(X) :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
-es_mujer(X)  :- personaje(X, mujer, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+es_hombre(X) :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+es_mujer(X)  :- personaje(X, mujer, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
 
 % Accesorios y rasgos faciales
-usa_lentes(X)      :- personaje(X, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
-tiene_pelo_largo(X):- personaje(X, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
-tiene_pelo_corto(X):- personaje(X, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
-usa_gorro(X)       :- personaje(X, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
-usa_aretes(X)      :- personaje(X, _, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
-tiene_barba(X)     :- personaje(X, _, _, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _).
-tiene_bigote(X)    :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, si).
+usa_lentes(X)      :- personaje(X, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+tiene_pelo_largo(X):- personaje(X, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+tiene_pelo_corto(X):- personaje(X, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+usa_gorro(X)       :- personaje(X, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+usa_aretes(X)      :- personaje(X, _, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _, _).
+tiene_barba(X)     :- personaje(X, _, _, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _, _).
+tiene_bigote(X)    :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, si).
 
 % Cabello suelto (solo aplicable a mujeres)
-pelo_suelto(X)     :- personaje(X, mujer, _, _, _, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _).
+pelo_suelto(X)     :- personaje(X, mujer, _, _, _, _, _, _, si, _, _, _, _, _, _, _, _, _, _, _).
 
 % Color de cabello
-cabello_negro(X)      :- personaje(X, _, _, _, _, _, _, _, _, _, negro, _, _, _, _, _, _, _, _, _, _).
-cabello_castanio(X)   :- personaje(X, _, _, _, _, _, _, _, _, _, castanio, _, _, _, _, _, _, _, _, _, _).
-cabello_rubio(X)      :- personaje(X, _, _, _, _, _, _, _, _, _, rubio, _, _, _, _, _, _, _, _, _, _).
-cabello_gris(X)       :- personaje(X, _, _, _, _, _, _, _, _, _, gris, _, _, _, _, _, _, _, _, _, _).
-cabello_pelirrojo(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, pelirrojo, _, _, _, _, _, _, _, _, _, _).
-cabello_multicolor(X) :- personaje(X, _, _, _, _, _, _, _, _, _, multicolor, _, _, _, _, _, _, _, _, _, _).
-es_calvo(X)           :- personaje(X, _, _, _, _, _, _, _, _, _, no, _, _, _, _, _, _, si, _, _, _).
+cabello_negro(X)      :- personaje(X, _, _, _, _, _, _, _, _, negro, _, _, _, _, _, _, _, _, _, _).
+cabello_castanio(X)   :- personaje(X, _, _, _, _, _, _, _, _, castanio, _, _, _, _, _, _, _, _, _, _).
+cabello_rubio(X)      :- personaje(X, _, _, _, _, _, _, _, _, rubio, _, _, _, _, _, _, _, _, _, _).
+cabello_gris(X)       :- personaje(X, _, _, _, _, _, _, _, _, gris, _, _, _, _, _, _, _, _, _, _).
+cabello_pelirrojo(X)  :- personaje(X, _, _, _, _, _, _, _, _, pelirrojo, _, _, _, _, _, _, _, _, _, _).
+cabello_multicolor(X) :- personaje(X, _, _, _, _, _, _, _, _, multicolor, _, _, _, _, _, _, _, _, _, _).
+es_calvo(X)           :- personaje(X, _, _, _, _, _, _, _, _, no, _, _, _, _, _, _, _, si, _, _).
 
 % Mirada
-mira_izquierda(X) :- personaje(X, _, _, _, _, _, _, _, _, _, _, izquierda, _, _, _, _, _, _, _, _, _).
-mira_derecha(X)   :- personaje(X, _, _, _, _, _, _, _, _, _, _, derecha, _, _, _, _, _, _, _, _, _).
-mira_frente(X)    :- personaje(X, _, _, _, _, _, _, _, _, _, _, de_frente, _, _, _, _, _, _, _, _, _).
+mira_izquierda(X) :- personaje(X, _, _, _, _, _, _, _, _, _, izquierda, _, _, _, _, _, _, _, _, _).
+mira_derecha(X)   :- personaje(X, _, _, _, _, _, _, _, _, _, derecha, _, _, _, _, _, _, _, _, _).
+mira_frente(X)    :- personaje(X, _, _, _, _, _, _, _, _, _, de_frente, _, _, _, _, _, _, _, _, _).
 
 % Tez
-tez_clara(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, clara, _, _, _, _, _, _, _, _).
-tez_morena(X) :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, morena, _, _, _, _, _, _, _, _).
-tez_oscura(X) :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, oscura, _, _, _, _, _, _, _, _).
+tez_clara(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, clara, _, _, _, _, _, _, _, _).
+tez_morena(X) :- personaje(X, _, _, _, _, _, _, _, _, _, _, morena, _, _, _, _, _, _, _, _).
+tez_oscura(X) :- personaje(X, _, _, _, _, _, _, _, _, _, _, oscura, _, _, _, _, _, _, _, _).
 
 % Tipo de cabello
-pelo_liso(X)      :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, liso, _, _, _, _, _, _, _).
-pelo_ondulado(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, ondulado, _, _, _, _, _, _, _).
-pelo_afro(X)      :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, afro, _, _, _, _, _, _, _).
-pelo_sin_tipo(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, no, _, _, _, _, _, _, _).
+pelo_liso(X)      :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, liso, _, _, _, _, _, _, _).
+pelo_ondulado(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, ondulado, _, _, _, _, _, _, _).
+pelo_afro(X)      :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, afro, _, _, _, _, _, _, _).
+pelo_sin_tipo(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, no, _, _, _, _, _, _, _).
 
 % Corte militar y copete (hombres)
-corte_militar(X)  :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, _, si, _, _, _, _, _, _).
-tiene_copete(X)   :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, _, _, si, _, _, _, _, _).
+corte_militar(X)  :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, si, _, _, _, _, _, _).
+tiene_copete(X)   :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, _, si, _, _, _, _, _).
 
 % Edad
-es_infante(X)        :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, infante, _, _, _, _).
-es_adulto(X)         :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, adulto, _, _, _, _).
-es_adulto_mayor(X)   :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, adulto_mayor, _, _, _, _).
+es_infante(X)        :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, infante, _, _, _, _).
+es_adulto(X)         :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, adulto, _, _, _, _).
+es_adulto_mayor(X)   :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, adulto_mayor, _, _, _, _).
 
 % Ropa
-usa_chompa(X)     :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, chompa, _, _, _).
-usa_polo(X)       :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, polo, _, _, _).
-usa_caffarena(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, caffarena, _, _, _).
-usa_camisa(X)     :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, camisa, _, _, _).
+usa_chompa(X)     :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, chompa, _, _, _).
+usa_polo(X)       :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, polo, _, _, _).
+usa_caffarena(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, caffarena, _, _, _).
+usa_camisa(X)     :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, camisa, _, _, _).
 
 % Etnia
-es_occidental(X)        :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, occidental, _).
-es_asiatico(X)          :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, asiatica, _).
-es_afrodescendiente(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, afrodescendiente, _).
+es_occidental(X)        :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, occidental, _).
+es_asiatico(X)          :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, asiatica, _).
+es_afrodescendiente(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, afrodescendiente, _).
 
 % MAPEO ENTRE PREGUNTAS Y PREDICADOS
 
