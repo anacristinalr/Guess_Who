@@ -1,254 +1,34 @@
 const caracteristicas_por_personaje = {
-  ethan: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_negro",
-    "ondulado",
-    "mirada_derecha",
-    "aretes",
-  ],
-  sidney: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_largo",
-    "pelo_color_pelirrojo",
-    "mirada_izquierda",
-    "aretes",
-  ],
-  olivia: [
-    "genero_mujer",
-    "tez_morena",
-    "pelo_largo",
-    "pelo_color_multicolor",
-    "mirada_derecha",
-    "tipo_pelo_afro",
-  ],
-  diego: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_negro",
-    "mirada_izquierda",
-    "tipo_pelo_liso",
-  ],
-  theo: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_castanio",
-    "mirada_izquierda",
-    "tipo_pelo_liso",
-    "gorro",
-  ],
-  dylan: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_negro",
-    "mirada_derecha",
-    "copete",
-  ],
-  laura: [
-    "genero_mujer",
-    "tez_morena",
-    "pelo_largo",
-    "pelo_color_negro",
-    "mirada_izquierda",
-    "ondulado",
-    "aretes",
-    "pelo_suelto",
-  ],
-  jasper: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_rubio",
-    "mirada_izquierda",
-    "copete",
-    "lentes",
-    "tipo_pelo_liso",
-  ],
-  amy: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_corto",
-    "pelo_suelto",
-    "lentes",
-    "pelo_color_multicolor",
-    "mirada_derecha",
-  ],
-  maya: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_largo",
-    "pelo_color_pelirrojo",
-    "mirada_izquierda",
-  ],
-  marcus: [
-    "genero_hombre",
-    "tez_morena",
-    "pelo_color_rubio",
-    "corte_militar",
-    "tipo_pelo_liso",
-    "mirada_derecha",
-  ],
-  luke: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_castanio",
-    "lentes",
-    "mirada_izquierda",
-  ],
-  sam: [
-    "genero_mujer",
-    "tez_morena",
-    "pelo_largo",
-    "pelo_suelto",
-    "ondulado",
-    "pelo_color_negro",
-    "mirada_izquierda",
-  ],
-  mason: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_castanio",
-    "barba",
-    "mirada_izquierda",
-  ],
-  zara: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_corto",
-    "gorro",
-    "pelo_color_rubio",
-    "mirada_izquierda",
-  ],
-  jack: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_negro",
-    "mirada_derecha",
-    "copete",
-    "gorro",
-  ],
-  angelina: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_largo",
-    "aretes",
-    "pelo_suelto",
-    "pelo_color_negro",
-    "mirada_izquierda",
-  ],
-  renzo: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_castanio",
-    "mirada_izquierda",
-    "gorro",
-  ],
-  ana: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_largo",
-    "pelo_suelto",
-    "lentes",
-    "pelo_color_negro",
-    "ondulado",
-  ],
-  ben: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_gris",
-    "lentes",
-    "es_calvo",
-    "bigote",
-    "mirada_de_frente",
-    "edad_adulto_mayor",
-  ],
-  lily: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_largo",
-    "gorro",
-    "pelo_suelto",
-    "pelo_color_castanio",
-    "mirada_izquierda",
-    "etnia_asiatica",
-  ],
-  brian: ["genero_hombre", "tez_clara", "es_calvo", "mirada_derecha"],
-  george: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_rubio",
-    "gorro",
-    "mirada_de_frente",
-    "edad_infante",
-  ],
-  namjoon: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_gris",
-    "gorro",
-    "copete",
-    "mirada_izquierda",
-    "etnia_asiatica",
-  ],
-  minjeong: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_largo",
-    "aretes",
-    "pelo_suelto",
-    "pelo_color_castanio",
-    "mirada_izquierda",
-    "etnia_asiatica",
-  ],
-  connor: [
-    "genero_hombre",
-    "tez_morena",
-    "pelo_color_negro",
-    "barba",
-    "etnia_afrodescendiente",
-    "mirada_derecha",
-    "tipo_pelo_afro",
-    "bigote",
-  ],
-  susan: [
-    "genero_mujer",
-    "tez_clara",
-    "pelo_corto",
-    "pelo_suelto",
-    "pelo_color_gris",
-    "lentes",
-    "ondulado",
-    "mirada_derecha",
-    "edad_adulto_mayor",
-  ],
-  richard: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_gris",
-    "es_calvo",
-    "lentes",
-    "mirada_derecha",
-    "edad_adulto_mayor",
-  ],
-  mike: [
-    "genero_hombre",
-    "tez_clara",
-    "pelo_color_negro",
-    "gorro",
-    "mirada_derecha",
-    "edad_infante",
-  ],
-  charles: [
-    "genero_hombre",
-    "tez_morena",
-    "pelo_color_negro",
-    "gorro",
-    "corte_militar",
-    "tipo_pelo_afro",
-    "mirada_derecha",
-    "etnia_afrodescendiente",
-    "edad_infante",
-  ],
+  ethan: ["hombre", "aretes", "negro", "derecha", "tez_clara", "ondulado", "adulto", "polo", "occidental"],
+  sidney: ["mujer", "gorro", "pelirrojo", "izquierda", "tez_clara", "liso", "adulto", "polo", "occidental"],
+  olivia: ["mujer", "multicolor", "derecha", "tez_morena", "afro", "adulto", "polo", "afrodescendiente"],
+  diego: ["hombre", "negro", "izquierda", "tez_clara", "liso", "adulto", "polo", "occidental"],
+  theo: ["hombre", "gorro", "castanio", "izquierda", "tez_clara", "liso", "adulto", "chompa", "occidental"],
+  dylan: ["hombre", "negro", "derecha", "tez_clara", "liso", "copete", "adulto", "polo", "occidental"],
+  laura: ["mujer", "aretes", "pelo_suelto", "negro", "izquierda", "tez_morena", "ondulado", "adulto", "chompa", "occidental"],
+  jasper: ["hombre", "lentes", "rubio", "izquierda", "tez_clara", "liso", "copete", "adulto", "camisa", "occidental"],
+  amy: ["mujer", "lentes", "gorro", "pelo_suelto", "multicolor", "derecha", "tez_clara", "liso", "adulto", "chompa", "occidental"],
+  maya: ["mujer", "pelirrojo", "izquierda", "tez_clara", "liso", "adulto", "chompa", "occidental"],
+  marcus: ["hombre", "rubio", "derecha", "tez_morena", "liso", "corte_militar", "adulto", "polo", "afrodescendiente"],
+  luke: ["hombre", "lentes", "castanio", "izquierda", "tez_clara", "liso", "adulto", "polo", "occidental"],
+  sam: ["mujer", "pelo_suelto", "negro", "izquierda", "tez_morena", "ondulado", "adulto", "chompa", "afrodescendiente"],
+  mason: ["hombre", "barba", "castanio", "izquierda", "tez_clara", "liso", "adulto", "polo", "occidental"],
+  zara: ["mujer", "gorro", "rubio", "izquierda", "tez_clara", "liso", "adulto", "caffarena", "occidental"],
+  jack: ["hombre", "gorro", "negro", "derecha", "tez_clara", "liso", "copete", "adulto", "polo", "occidental"],
+  angelina: ["mujer", "aretes", "pelo_suelto", "negro", "izquierda", "tez_clara", "liso", "adulto", "polo", "occidental"],
+  renzo: ["hombre", "gorro", "castanio", "izquierda", "tez_clara", "liso", "adulto", "polo", "occidental"],
+  ana: ["mujer", "lentes", "pelo_suelto", "negro", "izquierda", "tez_clara", "ondulado", "adulto", "chompa", "occidental"],
+  ben: ["hombre", "lentes", "gris", "frente", "tez_clara", "adulto_mayor", "camisa", "calvo", "occidental", "bigote"],
+  lily: ["mujer", "gorro", "pelo_suelto", "castanio", "izquierda", "tez_clara", "liso", "adulto", "polo", "asiatica"],
+  brian: ["hombre", "frente", "tez_clara", "adulto", "polo", "calvo", "occidental"],
+  george: ["hombre", "gorro", "rubio", "frente", "tez_clara", "liso", "infante", "chompa", "occidental"],
+  namjoon: ["hombre", "gorro", "gris", "izquierda", "tez_clara", "liso", "copete", "adulto", "caffarena", "asiatica"],
+  minjeong: ["mujer", "aretes", "pelo_suelto", "castanio", "izquierda", "tez_clara", "liso", "adulto", "caffarena", "asiatica"],
+  connor: ["hombre", "barba", "negro", "derecha", "tez_morena", "afro", "adulto", "polo", "afrodescendiente", "bigote"],
+  susan: ["mujer", "lentes", "gorro", "pelo_suelto", "gris", "derecha", "tez_clara", "ondulado", "adulto_mayor", "camisa", "occidental"],
+  richard: ["hombre", "lentes", "gorro", "gris", "derecha", "tez_clara", "adulto_mayor", "camisa", "calvo", "occidental"],
+  mike: ["hombre", "gorro", "gorro", "negro", "derecha", "tez_clara", "liso", "infante", "polo", "occidental"],
+  charles: ["hombre", "gorro", "negro", "derecha", "tez_morena", "afro", "corte_militar", "infante", "polo", "afrodescendiente"]
 };
 
 let posibles = new Set(Object.keys(caracteristicas_por_personaje));
@@ -280,7 +60,7 @@ window.preguntar = async function (filtro) {
 
     console.log(`Posibles restantes: ${Array.from(posibles)}`);
 
-    render();
+    await render();
     actualizarBotonesDisponibles();
     actualizarProgreso();
     verificarGanador();
@@ -311,7 +91,7 @@ window.reiniciarJuego = async function () {
     preguntasCount = 0;
     tiempoInicio = Date.now();
 
-    render();
+    await render();
     actualizarBotonesDisponibles();
     actualizarProgreso();
 
@@ -334,6 +114,17 @@ window.cerrarModalYReiniciar = function () {
 
 function actualizarBotonesDisponibles() {
   const botones = document.querySelectorAll("button[onclick^='preguntar']");
+  if (
+    preguntasHechas.size === 0 &&
+    posibles.size === Object.keys(caracteristicas_por_personaje).length
+  ) {
+    botones.forEach((boton) => {
+      boton.disabled = false;
+      boton.style.opacity = "1";
+    });
+    return;
+  }
+
   botones.forEach((boton) => {
     const filtro = boton.getAttribute("onclick").match(/'([^']+)'/)[1];
 
@@ -407,111 +198,98 @@ function actualizarProgreso() {
     progressFill.style.width = `${progreso}%`;
   }
 }
-function render() {
+
+async function render() {
   const contenedor = document.getElementById("personajes-grid");
   if (!contenedor) {
-    console.error(" No se encontró el contenedor de personajes");
+    console.error("No se encontró el contenedor de personajes");
     return;
   }
 
   contenedor.innerHTML = "";
 
-  // 1. Obtener y mezclar personajes
-  const todosLosPersonajes = Object.keys(caracteristicas_por_personaje);
-  const seleccionados = todosLosPersonajes
-    .sort(() => 0.5 - Math.random()) // Mezcla aleatoria
-    .slice(0, 15);  //toma 15
+  try {
+    // Obtener todos los personajes de tu objeto
+    const todosLosPersonajes = Object.keys(caracteristicas_por_personaje);
 
-  // 2. Mostrar solo los 15 seleccionados
-  for (const personaje of seleccionados) {
-    const div = document.createElement("div");
+    // Obtener personaje secreto desde backend (ajusta la propiedad según tu respuesta)
+    const secretoRes = await fetch("/personaje_secreto");
+    const secretoData = await secretoRes.json();
 
-    div.className =
-      "card-flip rounded-lg overflow-hidden transition-all shadow-lg relative";
+    // Ajusta según tu backend; aquí asumo que responde { personaje: "nombre" }
+    const personajeSecreto = secretoData.personaje?.toLowerCase() || secretoData.personaje_secreto?.toLowerCase();
 
-    const cardInner = document.createElement("div");
-    cardInner.className = "card-inner";
-
-    const cardFront = document.createElement("div");
-    cardFront.className = "card-front";
-
-    const img = document.createElement("img");
-    img.src = `/static/img/personajes/${personaje}.png`;
-    img.alt = personaje;
-    img.className = "w-full h-full object-cover transition-all";
-
-    img.onerror = function () {
-      this.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240"><rect width="200" height="240" fill="%23ffd93d"/><text x="100" y="120" text-anchor="middle" dy=".3em" fill="%23333" font-family="Arial" font-size="16" font-weight="bold">${personaje.toUpperCase()}</text></svg>`;
-    };
-
-    const cardBack = document.createElement("div");
-    cardBack.className = "card-back";
-    cardBack.innerHTML = `
-      <div class="text-center">
-        <div class="text-4xl mb-2">❌</div>
-        <div class="text-sm font-semibold">ELIMINADO</div>
-      </div>
-    `;
-
-    cardFront.appendChild(img);
-    cardInner.appendChild(cardFront);
-    cardInner.appendChild(cardBack);
-    div.appendChild(cardInner);
-
-    if (!posibles.has(personaje)) {
-      div.classList.add("card-flipped");
-
-      setTimeout(() => {
-        div.classList.add("opacity-75", "scale-95");
-      }, 400);
+    if (!personajeSecreto) {
+      console.error("No se recibió personaje secreto del backend");
+      return;
     }
 
-    contenedor.appendChild(div);
-  }
+    // Construir el set con personaje secreto + 14 aleatorios
+    let seleccionados = new Set();
+    seleccionados.add(personajeSecreto);
 
-  console.log(
-    `Renderizados ${
-      Object.keys(caracteristicas_por_personaje).length
-    } personajes, ${posibles.size} activos`
-  );
-}
+    while (seleccionados.size < 15) {
+      const aleatorio = todosLosPersonajes[Math.floor(Math.random() * todosLosPersonajes.length)];
+      seleccionados.add(aleatorio);
+    }
 
-function showToast(message, type = "info") {
-  const container = document.getElementById("toast-container");
-  if (!container) return;
+    // Convertir a array y mezclar
+    seleccionados = Array.from(seleccionados).sort(() => 0.5 - Math.random());
 
-  const toast = document.createElement("div");
-  toast.className = `fixed top-4 right-4 px-4 py-2 rounded-lg text-white text-sm font-medium shadow-lg transform transition-all duration-300 translate-x-full z-50`;
+    // Mostrar personajes
+    for (const personaje of seleccionados) {
+      const div = document.createElement("div");
+      div.className = "card-flip rounded-lg overflow-hidden transition-all shadow-lg relative";
 
-  switch (type) {
-    case "success":
-      toast.classList.add("bg-green-500");
-      break;
-    case "error":
-      toast.classList.add("bg-red-500");
-      break;
-    default:
-      toast.classList.add("bg-blue-500");
-  }
+      const cardInner = document.createElement("div");
+      cardInner.className = "card-inner";
 
-  toast.textContent = message;
-  container.appendChild(toast);
+      const cardFront = document.createElement("div");
+      cardFront.className = "card-front";
 
-  setTimeout(() => {
-    toast.classList.remove("translate-x-full");
-  }, 100);
+      const img = document.createElement("img");
+      img.src = `/static/img/personajes/${personaje}.png`;
+      img.alt = personaje;
+      img.className = "w-full h-full object-cover transition-all";
 
-  setTimeout(() => {
-    toast.classList.add("translate-x-full");
-    setTimeout(() => {
-      if (container.contains(toast)) {
-        container.removeChild(toast);
+      img.onerror = function () {
+        this.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240"><rect width="200" height="240" fill="%23ffd93d"/><text x="100" y="120" text-anchor="middle" dy=".3em" fill="%23333" font-family="Arial" font-size="16" font-weight="bold">${personaje.toUpperCase()}</text></svg>`;
+      };
+
+      const cardBack = document.createElement("div");
+      cardBack.className = "card-back";
+      cardBack.innerHTML = `
+        <div class="text-center">
+          <div class="text-4xl mb-2">❌</div>
+          <div class="text-sm font-semibold">ELIMINADO</div>
+        </div>
+      `;
+
+      cardFront.appendChild(img);
+      cardInner.appendChild(cardFront);
+      cardInner.appendChild(cardBack);
+      div.appendChild(cardInner);
+
+      // Marca como volteado si fue eliminado
+      if (!posibles.has(personaje)) {
+        div.classList.add("card-flipped");
+        setTimeout(() => {
+          div.classList.add("opacity-75", "scale-95");
+        }, 400);
       }
-    }, 300);
-  }, 3000);
+
+      contenedor.appendChild(div);
+    }
+
+    console.log(`Renderizados ${seleccionados.length} personajes, ${posibles.size} activos`);
+  } catch (error) {
+    console.error("Error en render:", error);
+    showToast("Error al cargar personajes", "error");
+  }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+// Evento DOMContentLoaded con llamada await a render
+document.addEventListener("DOMContentLoaded", async function () {
   console.log("DOM cargado, inicializando juego...");
 
   const grid = document.getElementById("personajes-grid");
@@ -527,7 +305,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  render();
+  await render(); // ¡No olvides el await!
+
   actualizarBotonesDisponibles();
   actualizarProgreso();
 

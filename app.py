@@ -1,22 +1,38 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from pyswip import Prolog
-import os
 import random
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
+
 CORS(app)
 
-# Carga el archivo Prolog
 prolog = Prolog()
-try:
-    prolog.consult("adivinaquien.pl")
-    print("[✔] Archivo Prolog cargado correctamente.")
-except Exception as e:
-    print(f"[❌ Error al cargar Prolog]: {e}")
-
-# Estado global
+PROLOG_FILE = "adivinaquien.pl"
 personaje_secreto = None
+
+def cargar_prolog():
+    try:
+        prolog.consult(PROLOG_FILE)
+        print("[✔] Archivo Prolog cargado correctamente.")
+    except Exception as e:
+        print(f"[❌ Error al cargar Prolog]: {e}")
+
+def asignar_personaje_secreto():
+    global personaje_secreto
+    try:
+        resultados = list(prolog.query("personaje(P)."))
+        personajes = [str(p["P"]) for p in resultados]
+        if personajes:
+            personaje_secreto = random.choice(personajes)
+            print(f"[✔] Personaje secreto inicial: {personaje_secreto}")
+        else:
+            print("[❌] No se encontraron personajes en Prolog.")
+    except Exception as e:
+        print(f"[❌ Error al asignar personaje secreto]: {e}")
+
+cargar_prolog()
+asignar_personaje_secreto()
 
 @app.route("/")
 def home():
@@ -28,29 +44,8 @@ def preguntar():
     pregunta = data.get("pregunta", "").lower().strip()
     posibles = data.get("posibles", [])
 
-    def limpiar_nombre(p):
-        return ''.join(c for c in p.lower() if c.isalnum() or c == '_')
-
-    posibles_prolog = [limpiar_nombre(p) for p in posibles]
+    posibles_prolog = [p.lower().strip('"').strip("'") for p in posibles]
     posibles_str = "[" + ",".join(posibles_prolog) + "]"
-
-    # Mapeo de preguntas del frontend a Prolog
-    pregunta_map = {
-        "edad:infante": "infante",
-        "edad:adulto": "adulto",
-        "edad:adulto_mayor": "adulto_mayor",
-        "etnia:asiatica": "asiatico",
-        "etnia:occidental": "occidental",
-        "etnia:afrodescendiente": "afrodescendiente",
-        "de_frente": "frente"
-    }
-    pregunta = pregunta_map.get(pregunta, pregunta)
-    if ":" in pregunta:
-        pregunta = pregunta.split(":")[-1]
-
-    if not pregunta.isidentifier():
-        pregunta = f"'{pregunta}'"
-
     consulta = f"filtrar({pregunta}, {posibles_str}, Filtrados)"
 
     try:
@@ -60,31 +55,35 @@ def preguntar():
             nombres_filtrados = [str(p) for p in filtrados]
         else:
             nombres_filtrados = []
+        return jsonify({"posibles": nombres_filtrados})
     except Exception as e:
         print(f"[❌ Error en consulta Prolog]: {e}")
-        print(f"[❌ Consulta enviada]: {consulta}")
-        return jsonify({"posibles": [], "error": str(e), "consulta": consulta}), 500
-
-    return jsonify({"posibles": nombres_filtrados})
+        return jsonify({
+            "error": f"Pregunta no válida o error en Prolog: {pregunta}",
+            "posibles": []
+        }), 500
 
 @app.route("/reiniciar", methods=["POST"])
 def reiniciar():
     global personaje_secreto
-
     try:
         resultados = list(prolog.query("personaje(P)."))
         personajes = [str(p["P"]) for p in resultados]
         if not personajes:
-            print("[❌] No se encontraron personajes en Prolog. Verifica adivinaquien.pl")
+            print("[❌] No se encontraron personajes en Prolog.")
             return jsonify({"ok": False, "error": "No se encontraron personajes en Prolog."}), 500
+        personaje_secreto = random.choice(personajes)
+        print(f"[🔄 Reinicio] Personaje secreto: {personaje_secreto}")
+        return jsonify({"ok": True})
     except Exception as e:
         print(f"[❌ Error al obtener personajes]: {e}")
         return jsonify({"ok": False, "error": str(e)}), 500
 
-    personaje_secreto = random.choice(personajes)
-    print(f"[🔄 Reinicio] Personaje secreto: {personaje_secreto}")
-    return jsonify({"ok": True})
-
+@app.route("/personaje_secreto", methods=["GET"])
+def obtener_personaje_secreto():
+    if personaje_secreto:
+        return jsonify({"personaje_secreto": personaje_secreto})
+    return jsonify({"error": "El personaje secreto no ha sido asignado."}), 404
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

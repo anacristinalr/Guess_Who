@@ -23,6 +23,10 @@
 % Es_calvo: si | no  
 % Etnia: asiatica | occidental | afrodescendiente  
 
+% FILTROS DINÁMICOS
+% Obtener solo los nombres de los personajes
+personaje(P) :- personaje(P, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
+
 
 % ETHAN
 personaje(ethan, hombre, no, no, no, no, si, no,
@@ -176,10 +180,6 @@ personaje(charles, hombre, no, no, si, no, no, no,
           no, negro, derecha, morena, afro, si, no,
           infante, polo, no, afrodescendiente, no).
 
-% FILTROS DINÁMICOS
-
-% Obtener solo los nombres de los personajes
-personaje(P) :- personaje(P, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
 
 % Filtros por género
 es_hombre(X) :- personaje(X, hombre, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).
@@ -249,7 +249,6 @@ filtro_predicado(mujer, es_mujer).
 filtro_predicado(hombre, es_hombre).
 
 % Accesorios y rasgos faciales
-filtro_predicado(accesorios, tiene_accesorios).
 filtro_predicado(lentes, usa_lentes).
 filtro_predicado(pelo_largo, tiene_pelo_largo).
 filtro_predicado(pelo_corto, tiene_pelo_corto).
@@ -278,7 +277,6 @@ filtro_predicado(frente, mira_frente).
 % Tez
 filtro_predicado(tez_clara, tez_clara).
 filtro_predicado(tez_morena, tez_morena).
-filtro_predicado(tez_oscura, tez_oscura).
 
 % Tipo de cabello
 filtro_predicado(liso, pelo_liso).
