@@ -20,7 +20,7 @@ def cargar_prolog():
 def asignar_personaje_secreto():
     global personaje_secreto
     try:
-        # ✅ Usar el nuevo predicado que funciona
+        #Usar el nuevo predicado que funciona
         resultados = list(prolog.query("personaje(P, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _)."))
         personajes = [str(p["P"]) for p in resultados]
         if personajes:
@@ -106,17 +106,16 @@ def reiniciar():
     global personaje_secreto
     
     try:
-        # ✅ Obtener TODOS los personajes disponibles
+        # Obtener TODOS los personajes disponibles
         resultados = list(prolog.query("personaje(P, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _)."))
         todos_los_personajes = [str(p["P"]) for p in resultados]
         
         if len(todos_los_personajes) < 15:
             return jsonify({"ok": False, "error": "No hay suficientes personajes en la base de datos"}), 500
 
-        # ✅ Elegir personaje secreto primero
+        # Elegir personaje secreto primero
         personaje_secreto = random.choice(todos_los_personajes)
         
-        # ✅ Seleccionar 15 personajes aleatorios (incluyendo el secreto)
         personajes_seleccionados = set([personaje_secreto])
         
         # Agregar personajes aleatorios hasta llegar a 15
@@ -125,7 +124,7 @@ def reiniciar():
             personajes_seleccionados.add(aleatorio)
         
         personajes_para_juego = list(personajes_seleccionados)
-        random.shuffle(personajes_para_juego)  # Mezclar el orden
+        random.shuffle(personajes_para_juego)  
         
         print(f"\n[🔄 REINICIO]")
         print(f"Total personajes disponibles: {len(todos_los_personajes)}")
@@ -135,7 +134,7 @@ def reiniciar():
 
         return jsonify({
             "ok": True, 
-            "personajes_juego": personajes_para_juego,  # ✅ Solo 15 personajes aleatorios
+            "personajes_juego": personajes_para_juego, 
             "total_disponibles": len(todos_los_personajes),
             "personaje_secreto_incluido": personaje_secreto in personajes_para_juego
         })
@@ -144,7 +143,6 @@ def reiniciar():
         print(f"[❌ Error en reiniciar]: {e}")
         return jsonify({"ok": False, "error": str(e)}), 500
 
-# ✅ Nuevo endpoint para obtener todos los personajes (opcional)
 @app.route("/todos_personajes", methods=["GET"])
 def obtener_todos_personajes():
     try:

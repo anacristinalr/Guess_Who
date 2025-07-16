@@ -1,18 +1,17 @@
-// ✅ Variables para manejar personajes dinámicamente
 let TODOS_PERSONAJES_DISPONIBLES = [
   "ethan", "sidney", "olivia", "diego", "theo", "dylan", "laura", "jasper", 
   "amy", "maya", "marcus", "luke", "sam", "mason", "zara", "jack", "angelina", 
   "renzo", "ana", "ben", "lily", "brian", "george", "namjoon", "minjeong", 
   "connor", "susan", "richard", "mike", "charles"
-]; // Fallback en caso de error
+]; 
 
-let PERSONAJES_EN_JUEGO = []; // Personajes actuales del juego (15 aleatorios)
+let PERSONAJES_EN_JUEGO = [];
 let posibles = new Set();
 let preguntasHechas = new Set();
 let preguntasCount = 0;
 let tiempoInicio = Date.now();
 
-// ✅ Función para cargar todos los personajes disponibles
+
 async function cargarTodosPersonajes() {
   try {
     const response = await fetch("/todos_personajes");
@@ -26,7 +25,6 @@ async function cargarTodosPersonajes() {
   }
 }
 
-// ✅ Función principal para hacer preguntas (sin cambios)
 window.preguntar = async function(filtro) {
   console.log(`\n🔍 PREGUNTANDO: ${filtro}`);
   console.log(`📋 Posibles antes (${posibles.size}):`, Array.from(posibles).slice(0, 5));
@@ -87,7 +85,6 @@ window.preguntar = async function(filtro) {
   }
 };
 
-// ✅ Función para reiniciar CON PERSONAJES ALEATORIOS
 window.reiniciarJuego = async function() {
   console.log("🔄 REINICIANDO CON PERSONAJES ALEATORIOS...");
   
@@ -104,7 +101,6 @@ window.reiniciarJuego = async function() {
       throw new Error(data.error);
     }
     
-    // ✅ Actualizar personajes en juego con los aleatorios del servidor
     PERSONAJES_EN_JUEGO = data.personajes_juego || [];
     posibles = new Set(PERSONAJES_EN_JUEGO.map(p => p.toLowerCase()));
     preguntasHechas.clear();
@@ -123,22 +119,20 @@ window.reiniciarJuego = async function() {
   } catch (error) {
     console.error("💥 ERROR AL REINICIAR:", error);
     mostrarToast(`Error: ${error.message}`, "error");
-    
-    // ✅ Fallback: usar personajes predeterminados
+
+
     PERSONAJES_EN_JUEGO = TODOS_PERSONAJES_DISPONIBLES.slice(0, 15);
     posibles = new Set(PERSONAJES_EN_JUEGO);
     renderPersonajes();
   }
 };
 
-// ✅ Función para renderizar solo los personajes en juego
 function renderPersonajes() {
   const grid = document.getElementById("personajes-grid");
   if (!grid) return;
   
   grid.innerHTML = ""; 
   
-  // ✅ Solo renderizar personajes del juego actual
   PERSONAJES_EN_JUEGO.forEach(personaje => {
     const div = document.createElement("div");
     
@@ -183,7 +177,6 @@ function renderPersonajes() {
   console.log(`✅ Renderizados ${PERSONAJES_EN_JUEGO.length} personajes, ${posibles.size} activos`);
 }
 
-// ✅ Actualizar la función de progreso
 function actualizarProgreso() {
   const total = PERSONAJES_EN_JUEGO.length || 1; // Evitar división por 0
   const progreso = ((total - posibles.size) / total) * 100;
@@ -193,9 +186,8 @@ function actualizarProgreso() {
   }
 }
 
-// ✅ Resto de funciones sin cambios...
 window.adivinarPersonaje = async function(personaje) {
-  console.log(`🎯 ADIVINANDO: ${personaje}`);
+  console.log(` ADIVINANDO: ${personaje}`);
   
   try {
     const response = await fetch("/adivinar", {
@@ -213,7 +205,7 @@ window.adivinarPersonaje = async function(personaje) {
     }
     
   } catch (error) {
-    console.error("💥 ERROR al adivinar:", error);
+    console.error(" ERROR al adivinar:", error);
     mostrarToast(`Error: ${error.message}`, "error");
   }
 };
@@ -285,7 +277,6 @@ window.cerrarModalYReiniciar = () => {
   reiniciarJuego();
 };
 
-// ✅ Inicialización mejorada
 document.addEventListener('DOMContentLoaded', async function() {
   console.log("🚀 Inicializando juego...");
   
