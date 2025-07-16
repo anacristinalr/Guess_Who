@@ -26,7 +26,14 @@ def asignar_personaje_secreto():
         personajes = [str(p["P"]) for p in resultados]
         if personajes:
             personaje_secreto = random.choice(personajes)
+            restantes = [p for p in personajes if p != personaje_secreto]
+            seleccionados = set([personaje_secreto])
+            while len(seleccionados) < 15:
+                seleccionados.add(random.choice(restantes))
+            personajes_tablero = list(seleccionados)
+            random.shuffle(personajes_tablero)
             print(f"[✔] Personaje secreto inicial: {personaje_secreto}")
+            print(f"[✔] Personajes tablero: {personajes_tablero}")
         else:
             print("[❌] No se encontraron personajes en Prolog.")
     except Exception as e:
@@ -41,6 +48,7 @@ def home():
 
 @app.route("/preguntar", methods=["POST"])
 def preguntar():
+    global personaje_secreto, personajes_tablero
     data = request.get_json()
     pregunta = data.get("pregunta", "").lower().strip()
     posibles = data.get("posibles", [])
@@ -85,6 +93,10 @@ def obtener_personaje_secreto():
     if personaje_secreto:
         return jsonify({"personaje_secreto": personaje_secreto})
     return jsonify({"error": "El personaje secreto no ha sido asignado."}), 404
+
+@app.route("/personajes_tablero", methods=["GET"])
+def obtener_personajes_tablero():
+    return jsonify({"personajes_tablero": personajes_tablero})
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

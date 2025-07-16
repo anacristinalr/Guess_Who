@@ -35,11 +35,12 @@ let posibles = new Set(Object.keys(caracteristicas_por_personaje));
 let preguntasHechas = new Set();
 let preguntasCount = 0;
 let tiempoInicio = Date.now();
-
-
+let personajesTablero = []; // <-- lista de los 15 personajes mostrados
 
 
 window.preguntar = async function (filtro) {
+  if (preguntasHechas.has(filtro)) return;
+
   console.log(`🔍 Preguntando: ${filtro}`);
 
   try {
@@ -100,12 +101,13 @@ window.reiniciarJuego = async function () {
     preguntasHechas.clear();
     preguntasCount = 0;
     tiempoInicio = Date.now();
+    personajesTablero = []; // <-- Limpiar para forzar nueva selección
 
-    await render();
-    actualizarBotonesDisponibles();
-    actualizarProgreso();
+  await render();
+  actualizarBotonesDisponibles();
+  actualizarProgreso();
 
-    showToast("¡Nuevo juego iniciado!", "success");
+  showToast("¡Nuevo juego iniciado!", "success");
   } catch (error) {
     console.error("Error al reiniciar:", error);
     showToast("Error al reiniciar el juego", "error");
@@ -258,79 +260,85 @@ async function render() {
   contenedor.innerHTML = "";
 
   try {
-    // Obtener todos los personajes de tu objeto
-    const todosLosPersonajes = Object.keys(caracteristicas_por_personaje);
+    // Si personajesTablero ya está definido, solo mostrar esos
+    if (personajesTablero.length === 0) {
+      // Obtener todos los personajes de tu objeto
+      const todosLosPersonajes = Object.keys(caracteristicas_por_personaje);
 
-    // Obtener personaje secreto desde backend (ajusta la propiedad según tu respuesta)
-    const secretoRes = await fetch("/personaje_secreto");
-    const secretoData = await secretoRes.json();
+      // Obtener personaje secreto desde backend (ajusta la propiedad según tu respuesta)
+      const secretoRes = await fetch("/personaje_secreto");
+      const secretoData = await secretoRes.json();
 
-    // Ajusta según tu backend; aquí asumo que responde { personaje: "nombre" }
-    const personajeSecreto = secretoData.personaje?.toLowerCase() || secretoData.personaje_secreto?.toLowerCase();
+      // Ajusta según tu backend; aquí asumo que responde { personaje: "nombre" }
+      const personajeSecreto = secretoData.personaje?.toLowerCase() || secretoData.personaje_secreto?.toLowerCase();
 
-    if (!personajeSecreto) {
-      console.error("No se recibió personaje secreto del backend");
-      return;
-    }
-
-    // Construir el set con personaje secreto + 14 aleatorios
-    let seleccionados = new Set();
-    seleccionados.add(personajeSecreto);
-
-    while (seleccionados.size < 15) {
-      const aleatorio = todosLosPersonajes[Math.floor(Math.random() * todosLosPersonajes.length)];
-      seleccionados.add(aleatorio);
-    }
-
-    // Convertir a array y mezclar
-    seleccionados = Array.from(seleccionados).sort(() => 0.5 - Math.random());
-
-    // Mostrar personajes
-    for (const personaje of seleccionados) {
-      const div = document.createElement("div");
-      div.className = "card-flip rounded-lg overflow-hidden transition-all shadow-lg relative";
-
-      const cardInner = document.createElement("div");
-      cardInner.className = "card-inner";
-
-      const cardFront = document.createElement("div");
-      cardFront.className = "card-front";
-
-      const img = document.createElement("img");
-      img.src = `/static/img/personajes/${personaje}.png`;
-      img.alt = personaje;
-      img.className = "w-full h-full object-cover transition-all";
-
-      img.onerror = function () {
-        this.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240"><rect width="200" height="240" fill="%23ffd93d"/><text x="100" y="120" text-anchor="middle" dy=".3em" fill="%23333" font-family="Arial" font-size="16" font-weight="bold">${personaje.toUpperCase()}</text></svg>`;
-      };
-
-      const cardBack = document.createElement("div");
-      cardBack.className = "card-back";
-      cardBack.innerHTML = `
-        <div class="text-center">
-          <div class="text-4xl mb-2">❌</div>
-          <div class="text-sm font-semibold">ELIMINADO</div>
-        </div>
-      `;
-
-      cardFront.appendChild(img);
-      cardInner.appendChild(cardFront);
-      cardInner.appendChild(cardBack);
-      div.appendChild(cardInner);
-
-      // Marca como volteado si fue eliminado
-      if (!posibles.has(personaje)) {
-        div.classList.add("card-flipped");
-        setTimeout(() => {
-          div.classList.add("opacity-75", "scale-95");
-        }, 400);
+      if (!personajeSecreto) {
+        console.error("No se recibió personaje secreto del backend");
+        return;
       }
 
-      contenedor.appendChild(div);
+      // Construir el set con personaje secreto + 14 aleatorios (sin repetir)
+      let seleccionados = new Set();
+      seleccionados.add(personajeSecreto);
+
+      // Elegir 14 aleatorios que NO sean el personaje secreto
+      let restantes = todosLosPersonajes.filter(p => p !== personajeSecreto);
+      while (seleccionados.size < 15) {
+        const idx = Math.floor(Math.random() * restantes.length);
+        seleccionados.add(restantes[idx]);
+        restantes.splice(idx, 1);
+      }
+
+      // Convertir a array y mezclar
+      personajesTablero = Array.from(seleccionados).sort(() => 0.5 - Math.random());
     }
 
-    console.log(`Renderizados ${seleccionados.length} personajes, ${posibles.size} activos`);
+    // Mostrar personajes SOLO de personajesTablero
+  for (const personaje of personajesTablero) {
+    const div = document.createElement("div");
+    div.className = "card-flip rounded-lg overflow-hidden transition-all shadow-lg relative";
+
+    const cardInner = document.createElement("div");
+    cardInner.className = "card-inner";
+
+    const cardFront = document.createElement("div");
+    cardFront.className = "card-front";
+
+    const img = document.createElement("img");
+    img.src = `/static/img/personajes/${personaje}.png`;
+    img.alt = personaje;
+    img.className = "w-full h-full object-cover transition-all";
+
+    img.onerror = function () {
+      this.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240"><rect width="200" height="240" fill="%23ffd93d"/><text x="100" y="120" text-anchor="middle" dy=".3em" fill="%23333" font-family="Arial" font-size="16" font-weight="bold">${personaje.toUpperCase()}</text></svg>`;
+    };
+
+    const cardBack = document.createElement("div");
+    cardBack.className = "card-back";
+    cardBack.innerHTML = `
+      <div class="text-center">
+        <div class="text-4xl mb-2">❌</div>
+        <div class="text-sm font-semibold">ELIMINADO</div>
+      </div>
+    `;
+
+    cardFront.appendChild(img);
+    cardInner.appendChild(cardFront);
+    cardInner.appendChild(cardBack);
+    div.appendChild(cardInner);
+
+    // Marca como volteado si fue eliminado
+    if (!posibles.has(personaje)) {
+      div.classList.add("card-flipped");
+      setTimeout(() => {
+        div.classList.add("opacity-75", "scale-95");
+      }, 400);
+    }
+
+    contenedor.appendChild(div);
+  }
+
+  console.log(`Renderizados ${personajesTablero.length} personajes, ${posibles.size} activos`);
   } catch (error) {
     console.error("Error en render:", error);
     showToast("Error al cargar personajes", "error");
