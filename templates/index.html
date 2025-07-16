@@ -72,6 +72,27 @@
       font-weight: bold;
       font-size: 1.2rem;
     }
+    #personajes-grid {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    /* ✅ Grid responsive para 15 personajes */
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en móvil */
+    }
+    
+    @media (min-width: 640px) {
+      #personajes-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas en tablet */
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      #personajes-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 columnas en desktop */
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+    }
   </style>
 </head>
 
