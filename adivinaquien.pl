@@ -21,7 +21,7 @@
 % Tipo_pelo: liso | ondulado | afro | no
 % Ropa: chompa | polo | caffarena | camisa  
 % Es_calvo: si | no  
-% Etnia: asiatica | occidental | afrodescendiente  
+% Etnia: asiatico | occidental | afrodescendiente  
 
 % FILTROS DINÁMICOS
 % Obtener solo los nombres de los personajes
@@ -133,7 +133,7 @@ personaje(ben, hombre, si, no, no, no, no, no,
 % LILY
 personaje(lily, mujer, no, si, no, si, no, no,
           si, castanio, izquierda, clara, liso, no, no,
-          adulto, polo, no, asiatica, no).
+          adulto, polo, no, asiatico, no).
 
 % BRIAN
 personaje(brian, hombre, no, no, no, no, no, no,
@@ -148,12 +148,12 @@ personaje(george, hombre, no, no, si, no, no, no,
 % NAMJOON
 personaje(namjoon, hombre, no, no, si, no, no, no,
           no, gris, izquierda, clara, liso, no, si,
-          adulto, caffarena, no, asiatica, no).
+          adulto, caffarena, no, asiatico, no).
 
 % MINJEONG
 personaje(minjeong, mujer, no, si, no, no, si, no,
           si, castanio, izquierda, clara, liso, no, no,
-          adulto, caffarena, no, asiatica, no).
+          adulto, caffarena, no, asiatico, no).
 
 % CONNOR
 personaje(connor, hombre, no, si, no, no, no, si,
@@ -239,7 +239,7 @@ usa_camisa(X)     :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, c
 
 % Etnia
 es_occidental(X)        :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, occidental, _).
-es_asiatico(X)          :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, asiatica, _).
+es_asiatico(X)          :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, asiatico, _).
 es_afrodescendiente(X)  :- personaje(X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, afrodescendiente, _).
 
 % MAPEO ENTRE PREGUNTAS Y PREDICADOS
