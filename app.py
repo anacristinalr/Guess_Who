@@ -60,10 +60,8 @@ def preguntar():
         # El personaje secreto cumple con la pregunta
         consulta_secreto = f"filtrar({pregunta}, [{personaje_secreto}], Resultado)"
         print(f"Consulta para secreto: {consulta_secreto}")
-        
         resultado_secreto = list(prolog.query(consulta_secreto))
         secreto_cumple = len(resultado_secreto) > 0 and len(resultado_secreto[0]["Resultado"]) > 0
-
         print(f"¿El secreto cumple '{pregunta}'? {secreto_cumple}")
         
         # Obtener todos los personajes disponibles
@@ -73,7 +71,6 @@ def preguntar():
         personajes_con_caracteristica = []
         if resultado_todos and "TodosConCaracteristica" in resultado_todos[0]:
             personajes_con_caracteristica = [str(p) for p in resultado_todos[0]["TodosConCaracteristica"]]
-        
         print(f"Personajes que SÍ tienen '{pregunta}': {personajes_con_caracteristica}")
         
         posibles_actuales = [p.lower().strip() for p in posibles]
@@ -115,7 +112,7 @@ def reiniciar():
         
         if len(todos_los_personajes) < 15:
             return jsonify({"ok": False, "error": "No hay suficientes personajes en la base de datos"}), 500
-
+        
         # Elegir personaje secreto primero
         personaje_secreto = random.choice(todos_los_personajes)
         
