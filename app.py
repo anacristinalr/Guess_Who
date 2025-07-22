@@ -27,7 +27,6 @@ def asignar_personaje_secreto():
         if personajes:
             # Asignar un personaje secreto aleatorio
             personaje_secreto = random.choice(personajes)
-            print(f"[✔] Personaje secreto asignado: {personaje_secreto}")
         else:
             print("[❌] No se encontraron personajes en Prolog.")
     except Exception as e:

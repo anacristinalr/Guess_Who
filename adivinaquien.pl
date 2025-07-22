@@ -61,7 +61,7 @@ personaje(dylan, hombre, no, no, no, no, no, no,
 % LAURA
 personaje(laura, mujer, no, si, no, no, si, no,
           si, negro, izquierda, morena, ondulado, no, no,
-          adulto, chompa, no, occidental, no).
+          adulto, polo, no, occidental, no).
 
 % JASPER
 personaje(jasper, hombre, si, no, no, no, no, no,
