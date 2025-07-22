@@ -20,10 +20,12 @@ def cargar_prolog():
 def asignar_personaje_secreto():
     global personaje_secreto
     try:
-        #Usar el nuevo predicado que funciona
+        #Obtener todos los personajes disponibles
         resultados = list(prolog.query("personaje(P, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _)."))
+        # Extraer los nombres de los personajes
         personajes = [str(p["P"]) for p in resultados]
         if personajes:
+            # Asignar un personaje secreto aleatorio
             personaje_secreto = random.choice(personajes)
             print(f"[✔] Personaje secreto asignado: {personaje_secreto}")
         else:
@@ -55,17 +57,18 @@ def preguntar():
     print(f"Posibles actuales: {len(posibles)} personajes")
 
     try:
+        # El personaje secreto cumple con la pregunta
         consulta_secreto = f"filtrar({pregunta}, [{personaje_secreto}], Resultado)"
         print(f"Consulta para secreto: {consulta_secreto}")
         
         resultado_secreto = list(prolog.query(consulta_secreto))
         secreto_cumple = len(resultado_secreto) > 0 and len(resultado_secreto[0]["Resultado"]) > 0
-        
+
         print(f"¿El secreto cumple '{pregunta}'? {secreto_cumple}")
         
+        # Obtener todos los personajes disponibles
         todos_personajes = [str(p["P"]) for p in prolog.query("personaje(P, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _).")]
-        consulta_todos = f"filtrar({pregunta}, {str(todos_personajes).replace("'", "")}, TodosConCaracteristica)"
-        
+        consulta_todos = f"filtrar({pregunta}, {str(todos_personajes).replace("'", "")}, TodosConCaracteristica)"       
         resultado_todos = list(prolog.query(consulta_todos))
         personajes_con_caracteristica = []
         if resultado_todos and "TodosConCaracteristica" in resultado_todos[0]:
